@@ -36,8 +36,8 @@ else
     git remote add origin "$git_url"
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
-    #git config --local user.email "action@github.com"
-    #git config --local user.name "GitHub Action"
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
     git add .
     git commit -m "initial commit"
     git push --set-upstream origin main
