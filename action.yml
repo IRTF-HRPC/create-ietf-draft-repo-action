@@ -1,0 +1,16 @@
+name: 'generate-new-repo'
+description: 'Creates new repository at location specified for IETF Drafts'
+
+inputs:
+  draft-name:
+    description: 'Name of new draft and repository'
+    required: true
+  org-name:
+    description: 'Name of Github Organization to use'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.draft-name }}
+    - ${{ inputs.org-name }}
