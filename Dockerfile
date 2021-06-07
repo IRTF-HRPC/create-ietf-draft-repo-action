@@ -7,5 +7,5 @@ RUN apt-get update && \
     ruby-kramdown-rfc2629 \
     xml2rfc
 
-COPY docker-entrypoint.sh Makefile .
+COPY docker-entrypoint.sh Makefile ./
 ENTRYPOINT ["./docker-entrypoint.sh"]

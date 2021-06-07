@@ -14,7 +14,7 @@ on:
 jobs:
   generate-new-repository:
     runs-on: ubuntu-latest
-    name: Creates a new IETF draft repository
+    name: Create a new IETF draft repository
     steps:
       # To use this repository's private action,
       # you must check out the repository
