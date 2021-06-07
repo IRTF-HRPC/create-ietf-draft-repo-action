@@ -23,7 +23,7 @@ resp=$(curl -s \
     https://api.github.com/"${repository_prefix}"/repos \
     -d '{"name":"'${DRAFT_NAME}'"}')
 
-if [[ "$resp" != "200" ]]; then
+if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
     exit 1
 else
