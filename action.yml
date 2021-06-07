@@ -27,9 +27,8 @@ runs:
         TOKEN_USER: ${{ inputs.create-repo-token-username }}
       run: |
         echo "Creating new repository ${DRAFT_NAME}"
-        mkdir "${DRAFT_NAME}"
-        cp Makefile "${DRAFT_NAME}"/
-        cd "${DRAFT_NAME}"
+        mkdir /home/runner/work/"${DRAFT_NAME}"
+        cp Makefile /home/runner/work"${DRAFT_NAME}"
 
         # change api url based on whether an org name was provided
         if [[ -z "${ORG_NAME}" ]]; then
@@ -54,7 +53,7 @@ runs:
           rm response.txt
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
           echo "git_url=$(cat response.txt | jq -r '.clone_url')" >> $GITHUB_ENV
-          cd "${DRAFT_NAME}"
+          cd /home/runner/work/"${DRAFT_NAME}"
           git init
           git checkout -b main
           git remote add origin "$git_url"
