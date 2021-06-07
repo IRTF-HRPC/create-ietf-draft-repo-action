@@ -30,14 +30,14 @@ if [[ "$resp" != "201" ]]; then
     exit 1
 else
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-    git_url=$(cat response.txt | jq -r '.clone_url')
+    git_url="https://${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${repository_prefix}/${DRAFT_NAME}.git"
     git init
     git checkout -b main
     git remote add origin "$git_url"
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
-    git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"
+    #git config --local user.email "action@github.com"
+    #git config --local user.name "GitHub Action"
     git add .
     git commit -m "initial commit"
     git push --set-upstream origin main
