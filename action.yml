@@ -25,6 +25,8 @@ runs:
         ORG_NAME: ${{ inputs.org-name }}
         CREATE_REPO_GITHUB_TOKEN: ${{ inputs.create-repo-github-token }}
         TOKEN_USER: ${{ inputs.create-repo-token-username }}
+      outputs:
+        git_url
       run: |
         echo "Creating new repository ${DRAFT_NAME}"
         mkdir "${DRAFT_NAME}"
@@ -48,9 +50,11 @@ runs:
             -d '{"name":"'${DRAFT_NAME}'"}')
 
         if [[ "$resp" != "201" ]]; then
-            echo "Response $resp received from GitHub API, please check token permissions."
+          echo "Response $resp received from GitHub API, please check token permissions."
         else
+          rm response.txt
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
+          echo "::set-output name=git_url::$(cat response.txt | jq -r '.clone_url')"
         fi
 
     - name: "Push to repo"
@@ -61,12 +65,11 @@ runs:
         ORG_NAME: ${{ inputs.org-name }}
         CREATE_REPO_GITHUB_TOKEN: ${{ inputs.create-repo-github-token }}
         TOKEN_USER: ${{ inputs.create-repo-token-username }}
+        git_url: ${{ steps.create.outputs.git_url }}
       run: |
-        git_url=$(cat response.txt | jq -r '.clone_url')
         git init
         git checkout -b main
         git remote add origin "$git_url"
-        rm response.txt
         sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
         git add .
         git commit -m "initial commit"
