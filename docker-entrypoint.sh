@@ -2,7 +2,7 @@
 DRAFT_NAME=$1
 TOKEN_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
-ORG_NAME=$3
+ORG_NAME=$4
 
 echo "Creating new repository $DRAFT_NAME"
 mkdir "$DRAFT_NAME"
