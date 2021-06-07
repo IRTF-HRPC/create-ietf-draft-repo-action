@@ -14,6 +14,10 @@ inputs:
     description: 'Github token for creating repositories'
     required: true
 
+outputs:
+  git_url:
+    value: ${{ steps.create.outputs.git_url }}
+
 runs:
   using: 'composite'
   steps:
@@ -54,7 +58,7 @@ runs:
         else
           rm response.txt
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-          echo "::set-output name=git_url::$(cat response.txt | jq -r '.clone_url')"
+          echo "git_url=$(cat response.txt | jq -r '.clone_url')" >> $GITHUB_ENV
         fi
 
     - name: "Push to repo"
@@ -65,7 +69,6 @@ runs:
         ORG_NAME: ${{ inputs.org-name }}
         CREATE_REPO_GITHUB_TOKEN: ${{ inputs.create-repo-github-token }}
         TOKEN_USER: ${{ inputs.create-repo-token-username }}
-        git_url: ${{ steps.create.outputs.git_url }}
       run: |
         git init
         git checkout -b main
