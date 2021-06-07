@@ -25,6 +25,6 @@ jobs:
         id: generate-repo
         uses: ./ # Uses an action in the root directory
         with:
-          draft-name: ${{ inputs.draft-name }}
-          org-name: ${{ inputs.org-name }}
-          token-username: ${{ inputs.token-username }}
+          draft-name: ${{ github.event.inputs.draft-name }}
+          org-name: ${{ github.event.inputs.org-name }}
+          token-username: ${{ github.event.inputs.token-username }}
