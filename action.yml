@@ -49,26 +49,18 @@ runs:
 
         if [[ "$resp" != "201" ]]; then
           echo "Response $resp received from GitHub API, please check token permissions."
+          exit 1
         else
           rm response.txt
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
           echo "git_url=$(cat response.txt | jq -r '.clone_url')" >> $GITHUB_ENV
+          cd "${DRAFT_NAME}"
+          git init
+          git checkout -b main
+          git remote add origin "$git_url"
+          sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
+          git add .
+          git commit -m "initial commit"
+          git push --set-upstream origin main
+          echo "Created new repository ${DRAFT_NAME}"
         fi
-
-    - name: "Push to repo"
-      id: push
-      shell: bash
-      env:
-        DRAFT_NAME: ${{ inputs.draft-name }}
-        ORG_NAME: ${{ inputs.org-name }}
-        CREATE_REPO_GITHUB_TOKEN: ${{ inputs.create-repo-github-token }}
-        TOKEN_USER: ${{ inputs.create-repo-token-username }}
-      run: |
-        git init
-        git checkout -b main
-        git remote add origin "$git_url"
-        sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
-        git add .
-        git commit -m "initial commit"
-        git push --set-upstream origin main
-        echo "Created new repository ${DRAFT_NAME}"
