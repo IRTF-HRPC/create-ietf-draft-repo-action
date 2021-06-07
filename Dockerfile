@@ -1,7 +1,8 @@
 FROM ubuntu:20.04
 
 RUN apt-get update && \
-    apt-get install -y -qq \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
     jq \
     ruby-kramdown-rfc2629 \
     xml2rfc
