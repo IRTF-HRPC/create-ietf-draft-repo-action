@@ -19,6 +19,7 @@ runs:
   steps:
     - name: "Create repo"
       id: create
+      shell: bash
       env:
         DRAFT_NAME: ${{ inputs.draft-name }}
         ORG_NAME: ${{ inputs.org-name }}
@@ -54,6 +55,7 @@ runs:
 
     - name: "Push to repo"
       id: push
+      shell: bash
       env:
         DRAFT_NAME: ${{ inputs.draft-name }}
         ORG_NAME: ${{ inputs.org-name }}
