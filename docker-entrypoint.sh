@@ -4,8 +4,9 @@ TOKEN_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
 ORG_NAME=$4
 
-echo "Creating new repository $DRAFT_NAME"
-mkdir "$DRAFT_NAME"
+echo "Creating new repository ${DRAFT_NAME}"
+mkdir "${DRAFT_NAME}"
+cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
 if [[ -z "${ORG_NAME}" ]]; then
@@ -15,7 +16,7 @@ else
 fi
 
 resp=$(curl -s \
-    -u "$TOKEN_USER:$CREATE_REPO_GITHUB_TOKEN" \
+    -u "${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}" \
     -o response.txt \
     -w "%{http_code}" \
     -X POST \
@@ -31,7 +32,7 @@ else
     git init
     git remote add origin "$git_url"
     rm response.txt
-    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' ./*
+    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
     git add .
     git commit -m "initial commit"
     git push -u origin
