@@ -28,7 +28,7 @@ runs:
       run: |
         echo "Creating new repository ${DRAFT_NAME}"
         mkdir /home/runner/work/"${DRAFT_NAME}"
-        cp Makefile /home/runner/work"${DRAFT_NAME}"
+        cp Makefile /home/runner/work/"${DRAFT_NAME}"
 
         # change api url based on whether an org name was provided
         if [[ -z "${ORG_NAME}" ]]; then
