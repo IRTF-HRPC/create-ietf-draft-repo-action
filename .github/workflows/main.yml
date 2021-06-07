@@ -27,4 +27,5 @@ jobs:
         with:
           draft-name: ${{ github.event.inputs.draft-name }}
           org-name: ${{ github.event.inputs.org-name }}
-          token-username: ${{ github.event.inputs.token-username }}
+          create-repo-token-username: ${{ github.event.inputs.token-username }}
+          create-repo-github-token: ${{ secrets.CREATE_REPO_GITHUB_TOKEN }}

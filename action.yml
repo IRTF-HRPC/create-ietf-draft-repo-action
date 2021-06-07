@@ -7,8 +7,11 @@ inputs:
     required: true
   org-name:
     description: 'Name of Github Organization to use'
-  token-username:
-    description: 'Github username for CREATE_REPO_GITHUB_TOKEN'
+  create-repo-token-username:
+    description: 'Github username for create-repo-github-token'
+    required: true
+  create-repo-github-token:
+    description: 'Github token for creating repositories'
     required: true
 
 runs:
@@ -16,5 +19,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.draft-name }}
-    - ${{ inputs.token-username }}
+    - ${{ inputs.create-repo-token-username }}
+    - ${{ inputs.create-repo-github-token }}
     - ${{ inputs.org-name }}
