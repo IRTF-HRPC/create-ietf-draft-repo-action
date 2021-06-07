@@ -17,10 +17,14 @@ You'll need to provide the Github Actions workflow with a Github API Token that
 has the following permissions:
 
 * Create Repo
+
 TODO: add photo
 
 (Note: This reqires a user with admin permissions for the repository.) Enter
 the token as a Github Actions secret with the key `CREATE_REPO_GITHUB_TOKEN`.
+Also input the username of the Github account owner or machine user for whom
+the token was generated.
+
 TODO: add photo
 
 Provide the workflow with the name of the new repository, and click Run.

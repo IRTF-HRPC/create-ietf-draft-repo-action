@@ -1,5 +1,6 @@
 DRAFT_NAME=$1
-ORG_NAME=$2
+TOKEN_USER=$2
+ORG_NAME=$3
 
 echo "Creating new repository $DRAFT_NAME"
 mkdir "$DRAFT_NAME"
@@ -12,6 +13,7 @@ else
 fi
 
 resp=$(curl -s \
+    -u "$TOKEN_USER:$CREATE_REPO_GITHUB_TOKEN" \
     -o response.txt \
     -w "%{http_code}" \
     -X POST \

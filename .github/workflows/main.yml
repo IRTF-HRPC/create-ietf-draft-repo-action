@@ -7,6 +7,9 @@ inputs:
     description: 'Name of new draft and repository'
   org-name:
     description: 'Name of Github Organization to use'
+  token-username:
+    description: 'Github username for CREATE_REPO_GITHUB_TOKEN'
+    required: true
 
 jobs:
   generate-new-repository:
@@ -24,3 +27,4 @@ jobs:
         with:
           draft-name: ${{ inputs.draft-name }}
           org-name: ${{ inputs.org-name }}
+          token-username: ${{ inputs.token-username }}

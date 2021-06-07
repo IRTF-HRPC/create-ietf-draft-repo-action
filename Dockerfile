@@ -1,8 +1,5 @@
 FROM ubuntu:20.04
 
-ENV GITHUB_TOKEN
-ENV DRAFT_NAME
-
 RUN apt-get update && \
     apt-get install -y -qq \
     jq \
