@@ -53,13 +53,22 @@ runs:
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
           echo "git_url=$(cat response.txt | jq -r '.clone_url')" >> $GITHUB_ENV
           rm response.txt
-          cd /home/runner/work/"${DRAFT_NAME}"
-          git init
-          git checkout -b main
-          git remote add origin "$git_url"
-          sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
-          git add .
-          git commit -m "initial commit"
-          git push --set-upstream origin main
-          echo "Created new repository ${DRAFT_NAME}"
         fi
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.org-name }}
+        path: /home/runner/work/${{ inputs.draft-name }}
+    - name: "Push to repo"
+      id: push
+      shell: bash
+      env:
+        DRAFT_NAME: ${{ inputs.draft-name }}
+      run: |
+        git checkout -b main
+        # git remote add origin "$git_url"
+        sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
+        git add .
+        git commit -m "initial commit"
+        git push --set-upstream origin main
+        echo "Created new repository ${DRAFT_NAME}"
