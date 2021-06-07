@@ -6,6 +6,7 @@ ORG_NAME=$4
 
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
+cp Makefile "${DRAFT_NAME}"/
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
@@ -28,11 +29,14 @@ if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
     exit 1
 else
+    echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
     git_url=$(cat response.txt | jq -r '.git_url')
     git init
     git remote add origin "$git_url"
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
     git add .
     git commit -m "initial commit"
     git push -u origin
