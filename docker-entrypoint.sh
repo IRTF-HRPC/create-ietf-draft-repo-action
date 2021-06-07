@@ -12,8 +12,10 @@ cd "${DRAFT_NAME}"
 # change api url based on whether an org name was provided
 if [[ -z "${ORG_NAME}" ]]; then
     repository_prefix="user"
+    owner=$TOKEN_USER
 else
     repository_prefix="orgs/${ORG_NAME}"
+    owner=$ORG_NAME
 fi
 
 resp=$(curl -s \
@@ -30,7 +32,7 @@ if [[ "$resp" != "201" ]]; then
     exit 1
 else
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-    git_url="https://${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${repository_prefix}/${DRAFT_NAME}.git"
+    git_url="https://${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
     git init
     git checkout -b main
     git remote add origin "$git_url"
