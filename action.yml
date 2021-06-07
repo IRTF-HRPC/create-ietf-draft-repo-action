@@ -14,10 +14,6 @@ inputs:
     description: 'Github token for creating repositories'
     required: true
 
-outputs:
-  git_url:
-    value: ${{ steps.create.outputs.git_url }}
-
 runs:
   using: 'composite'
   steps:
@@ -29,8 +25,6 @@ runs:
         ORG_NAME: ${{ inputs.org-name }}
         CREATE_REPO_GITHUB_TOKEN: ${{ inputs.create-repo-github-token }}
         TOKEN_USER: ${{ inputs.create-repo-token-username }}
-      outputs:
-        git_url
       run: |
         echo "Creating new repository ${DRAFT_NAME}"
         mkdir "${DRAFT_NAME}"
