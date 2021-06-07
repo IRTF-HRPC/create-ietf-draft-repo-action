@@ -32,6 +32,7 @@ else
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
     git_url=$(cat response.txt | jq -r '.git_url')
     git init
+    git checkout main
     git remote add origin "$git_url"
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
@@ -39,6 +40,6 @@ else
     git config --local user.name "GitHub Action"
     git add .
     git commit -m "initial commit"
-    git push -u origin
+    git push --set-upstream origin main
     echo "Created new repository ${repository_prefix}/${DRAFT_NAME}"
 fi
