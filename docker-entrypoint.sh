@@ -1,3 +1,4 @@
+#!/bin/bash
 DRAFT_NAME=$1
 TOKEN_USER=$2
 ORG_NAME=$3
