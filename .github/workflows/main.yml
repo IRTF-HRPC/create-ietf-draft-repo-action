@@ -1,0 +1,26 @@
+name: 'Generate new repo'
+on: workflow_dispatch
+
+inputs:
+  draft-name:
+    required: true
+    description: 'Name of new draft and repository'
+  org-name:
+    description: 'Name of Github Organization to use'
+
+jobs:
+  generate-new-repository:
+    runs-on: ubuntu-latest
+    name: Creates a new IETF draft repository
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+      - name: Create new repository action
+        uses: ./ # Uses an action in the root directory
+        id: generate-repo
+        with:
+          draft-name: ${{ inputs.draft-name }}
+          org-name: ${{ inputs.org-name }}
