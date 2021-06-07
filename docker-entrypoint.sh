@@ -30,7 +30,7 @@ if [[ "$resp" != "201" ]]; then
     exit 1
 else
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-    git_url=$(cat response.txt | jq -r '.ssh_url')
+    git_url=$(cat response.txt | jq -r '.clone_url')
     git init
     git checkout -b main
     git remote add origin "$git_url"
