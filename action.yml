@@ -50,9 +50,9 @@ runs:
           echo "Response $resp received from GitHub API, please check token permissions."
           exit 1
         else
-          rm response.txt
           echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
           echo "git_url=$(cat response.txt | jq -r '.clone_url')" >> $GITHUB_ENV
+          rm response.txt
           cd /home/runner/work/"${DRAFT_NAME}"
           git init
           git checkout -b main
