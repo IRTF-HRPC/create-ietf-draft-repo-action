@@ -42,8 +42,8 @@ else
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md draft-x.md
     mv draft-x.md draft-"${DRAFT_NAME}".md
-#    git config --local user.email "action@github.com"
-#    git config --local user.name "GitHub Action"
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
     git add . .github/
     git commit -m "initial commit"
     git push --set-upstream origin main

@@ -19,6 +19,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.draft-name }}
-    - ${{ inputs.create-repo-token-username }}
+    - ${{ inputs.create-repo-github-user }}
     - ${{ inputs.create-repo-github-token }}
     - ${{ inputs.org-name }}
