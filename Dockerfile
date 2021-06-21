@@ -10,6 +10,6 @@ RUN apt-get update && \
     xml2rfc
 
 COPY workflows/ ./.github/workflows/
-COPY repo/ ./
+COPY repo/* ./
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

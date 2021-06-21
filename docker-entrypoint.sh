@@ -37,7 +37,7 @@ else
     git checkout -b main
     git remote add origin "$git_url"
     rm response.txt
-    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md
+    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md draft-x.md
     mv draft-x.md draft-"${DRAFT_NAME}".md
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
