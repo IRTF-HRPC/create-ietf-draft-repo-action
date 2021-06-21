@@ -7,8 +7,11 @@ ORG_NAME=$4
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
 cp repo/* "${DRAFT_NAME}"/
-mkdir -p "${DRAFT_NAME}"/.github/workflows
-cp workflows/ "${DRAFT_NAME}"/.github/workflows/
+mkdir -p "${DRAFT_NAME}"/.github/workflows/
+cp -r workflows/ "${DRAFT_NAME}"/.github/workflows/
+# TODO: remove
+ls .
+ls repo
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
@@ -33,6 +36,7 @@ if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
     exit 1
 else
+    echo "Response $resp received from GitHub API."
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
     git_url="https://${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
     git init
