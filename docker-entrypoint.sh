@@ -9,9 +9,6 @@ mkdir "${DRAFT_NAME}"
 cp repo/* "${DRAFT_NAME}"/
 mkdir -p "${DRAFT_NAME}"/.github/workflows/
 cp -r workflows/ "${DRAFT_NAME}"/.github/workflows/
-# TODO: remove
-ls .
-ls repo
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
@@ -45,8 +42,8 @@ else
     rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md draft-x.md
     mv draft-x.md draft-"${DRAFT_NAME}".md
-    git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"
+#    git config --local user.email "action@github.com"
+#    git config --local user.name "GitHub Action"
     git add . .github/
     git commit -m "initial commit"
     git push --set-upstream origin main
