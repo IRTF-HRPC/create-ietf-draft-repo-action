@@ -9,7 +9,7 @@ RUN apt-get update && \
     ruby-kramdown-rfc2629 \
     xml2rfc
 
-COPY workflows/ ./.github/workflows/
-COPY repo/* ./
+COPY workflows/ .
+COPY repo/ .
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

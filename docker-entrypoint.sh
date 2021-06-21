@@ -6,7 +6,9 @@ ORG_NAME=$4
 
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
-cp Makefile "${DRAFT_NAME}"/
+cp repo/* "${DRAFT_NAME}"/
+mkdir -p "${DRAFT_NAME}"/.github/workflows
+cp workflows/ "${DRAFT_NAME}"/.github/workflows/
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
@@ -41,7 +43,7 @@ else
     mv draft-x.md draft-"${DRAFT_NAME}".md
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
-    git add .
+    git add . .github/
     git commit -m "initial commit"
     git push --set-upstream origin main
     echo "Created new repository ${repository_prefix}/${DRAFT_NAME}"
