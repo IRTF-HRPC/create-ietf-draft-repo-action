@@ -1,0 +1,25 @@
+name: Upload to Datatracker
+on:
+  workflow_dispatch:
+    - inputs:
+        user_email:
+          description: Email of user to send IETF confirmation email to
+          required: true
+
+jobs:
+  upload-draft:
+    runs-on: ubuntu-latest
+    name: Upload current version of the draft to IETF
+    steps:
+
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Upload
+        id: upload-repo-draft
+        run: |
+          curl -S \
+          -F "user=${{ github.event.inputs.user_email }}" \
+          -F "xml=@~/draft-${{ github.event.repository.name }}.xml" \
+          https://datatracker.ietf.org/api/submit

@@ -7,7 +7,7 @@ inputs:
     required: true
   org-name:
     description: 'Name of Github Organization to use'
-  create-repo-token-username:
+  create-repo-github-user:
     description: 'Github username for create-repo-github-token'
     required: true
   create-repo-github-token:

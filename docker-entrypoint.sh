@@ -19,7 +19,7 @@ else
 fi
 
 resp=$(curl -s \
-    -u "${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}" \
+    -u "${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}" \
     -o response.txt \
     -w "%{http_code}" \
     -X POST \
@@ -32,12 +32,13 @@ if [[ "$resp" != "201" ]]; then
     exit 1
 else
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-    git_url="https://${TOKEN_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
+    git_url="https://${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
     git init
     git checkout -b main
     git remote add origin "$git_url"
     rm response.txt
-    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile
+    sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md
+    mv draft-x.md draft-"${DRAFT_NAME}".md
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
     git add .
