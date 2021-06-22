@@ -3,6 +3,7 @@ DRAFT_NAME=$1
 CREATE_REPO_GITHUB_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
 ORG_NAME=$4
+PRIVATE_REPO=$4
 
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
@@ -12,12 +13,19 @@ cp -r workflows/ "${DRAFT_NAME}"/.github/
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
+private_repo_data_blob=''
 if [[ -z "${ORG_NAME}" ]]; then
     repository_prefix="user"
     owner=$TOKEN_USER
+    if [[ "${PRIVATE_REPO}" == "true" ]]; then
+        private_repo_data_blob=',"private":"true"'
+    fi
 else
     repository_prefix="orgs/${ORG_NAME}"
     owner=$ORG_NAME
+    if [[ "${PRIVATE_REPO}" == "true" ]]; then
+        private_repo_data_blob=',"private":"true"'
+    fi
 fi
 
 resp=$(curl -s \
@@ -27,7 +35,7 @@ resp=$(curl -s \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
     https://api.github.com/"${repository_prefix}"/repos \
-    -d '{"name":"'${DRAFT_NAME}'"}')
+    -d '{"name":"'${DRAFT_NAME}${private_repo_data_blob}'"}')
 
 if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
