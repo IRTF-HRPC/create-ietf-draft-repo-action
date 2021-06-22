@@ -1,6 +1,6 @@
 #!/bin/bash
 DRAFT_NAME=$1
-TOKEN_USER=$2
+CREATE_REPO_GITHUB_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
 ORG_NAME=$4
 
@@ -33,19 +33,19 @@ if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
     exit 1
 else
+    rm response.txt
     echo "Response $resp received from GitHub API."
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
     git_url="https://${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
     git init
-    git checkout -b main
-    git remote add origin "$git_url"
-    rm response.txt
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md draft-x.md
     mv draft-x.md draft-"${DRAFT_NAME}".md
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
     git add . .github/
     git commit -m "initial commit"
+    git branch -M main
+    git remote add origin "$git_url"
     git push --set-upstream origin main
     echo "Created new repository ${repository_prefix}/${DRAFT_NAME}"
 fi
