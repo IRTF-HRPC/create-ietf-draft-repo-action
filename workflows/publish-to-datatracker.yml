@@ -1,10 +1,10 @@
-name: Upload to Datatracker
+name: "publish-to-datatracker"
 on:
   workflow_dispatch:
-    - inputs:
-        user_email:
-          description: Email of user to send IETF confirmation email to
-          required: true
+    inputs:
+      user_email:
+        description: Email of user to send IETF confirmation email to
+        required: true
 
 jobs:
   upload-draft:
@@ -19,7 +19,14 @@ jobs:
       - name: Upload
         id: upload-repo-draft
         run: |
-          curl -S \
+          resp=$(curl -S \
+          -w "%{http_code}" \
           -F "user=${{ github.event.inputs.user_email }}" \
           -F "xml=@~/draft-${{ github.event.repository.name }}.xml" \
-          https://datatracker.ietf.org/api/submit
+          https://datatracker.ietf.org/api/submit)
+          if [[ "$http_code" -gt 200 && "$http_code" lt 300 ]]; then
+            echo 'Draft uploaded to Datatracker. Please check your email.'
+          else
+            echo "Received status code ${http_code}:\n${resp}"
+          fi
+

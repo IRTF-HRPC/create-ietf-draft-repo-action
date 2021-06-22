@@ -1,9 +1,9 @@
-name: 'Generate current draft'
+name: 'generate-from-markdown'
 on:
   push:
     branches:
       - main
-  pull_request
+  pull_request:
 
 jobs:
   generate-draft:

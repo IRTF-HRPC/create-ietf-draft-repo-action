@@ -17,7 +17,8 @@ Datatracker and triggers a confirmation email.
 need to provide the Github Actions workflow with a Github API Token that has
 at a minimum the following permissions:
 
-* Create Repo
+* repo
+* workflow
 
 TODO: add photo
 
