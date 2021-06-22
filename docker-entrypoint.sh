@@ -7,8 +7,8 @@ ORG_NAME=$4
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
 cp repo/* "${DRAFT_NAME}"/
-mkdir -p "${DRAFT_NAME}"/.github/workflows/
-cp -r workflows/ "${DRAFT_NAME}"/.github/workflows/
+mkdir -p "${DRAFT_NAME}"/.github
+cp -r workflows/ "${DRAFT_NAME}"/.github/
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided

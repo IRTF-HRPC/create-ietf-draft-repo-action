@@ -13,17 +13,17 @@ Datatracker and triggers a confirmation email.
 
 ## How To Create A New Repo
 
-You'll need to provide the Github Actions workflow with a Github API Token that
-has the following permissions:
+(Note: This reqires a user with admin permissions for the repository.) You'll
+need to provide the Github Actions workflow with a Github API Token that has
+at a minimum the following permissions:
 
 * Create Repo
 
 TODO: add photo
 
-(Note: This reqires a user with admin permissions for the repository.) Enter
-the token as a Github Actions secret with the key `CREATE_REPO_GITHUB_TOKEN`.
-Also input the username of the Github account owner or machine user for whom
-the token was generated.
+Provide the Github API  token as a Github Actions secret with the key
+`CREATE_REPO_GITHUB_TOKEN`, and the user as a secret with the key
+`CREATE_REPO_GITHUB_USER`.
 
 TODO: add photo
 
