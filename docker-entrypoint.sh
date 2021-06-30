@@ -3,8 +3,7 @@ DRAFT_NAME=$1
 CREATE_REPO_GITHUB_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
 ORG_NAME=$4
-USER_NAME=$5
-PRIVATE_REPO=$6
+PRIVATE_REPO=$5
 
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
@@ -16,7 +15,7 @@ cd "${DRAFT_NAME}"
 # change api url based on whether an org name was provided
 if [[ -z "${ORG_NAME}" ]]; then
     repository_prefix="user"
-    OWNER_NAME=$USER_NAME
+    OWNER_NAME=$CREATE_REPO_GITHUB_USER
 else
     repository_prefix="orgs/${ORG_NAME}"
     OWNER_NAME=$ORG_NAME
