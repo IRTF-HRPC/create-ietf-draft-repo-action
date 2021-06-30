@@ -10,7 +10,7 @@ workgroup:
 keyword: Internet-Draft
 stand_alone: yes
 pi:
-  rfcedstyle: yes
+  RFCedstyle: yes
   toc: yes
   tocindent: yes
   sortrefs: yes
