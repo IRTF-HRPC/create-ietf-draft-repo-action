@@ -1,4 +1,4 @@
-name: 'generate-new-repository'
+name: 'Generate new repository'
 on:
   workflow_dispatch:
     inputs:

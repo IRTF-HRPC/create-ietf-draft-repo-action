@@ -36,8 +36,8 @@ a secret with the key `CREATE_REPO_GITHUB_USER`.
 
 ## How To Create A New Repo
 
-To create a new repository, go to the Actions tab and select Generate new repo
-in the sidebar.
+To create a new repository, go to the Actions tab and select Generate new
+repository in the sidebar.
 
 ![Generate new repo](images/new_repo_workflow.png)
 
