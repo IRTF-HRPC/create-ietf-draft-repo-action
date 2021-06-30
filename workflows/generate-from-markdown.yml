@@ -18,7 +18,7 @@ jobs:
       - name: Install needed tools
         id: install
         run: |
-          apt-get install -y --no-install-recommends \
+          sudo apt-get install -y --no-install-recommends \
             ruby-kramdown-rfc2629 \
             xml2rfc
 

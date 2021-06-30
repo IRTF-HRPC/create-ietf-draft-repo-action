@@ -3,7 +3,7 @@ DRAFT_NAME=$1
 CREATE_REPO_GITHUB_USER=$2
 CREATE_REPO_GITHUB_TOKEN=$3
 ORG_NAME=$4
-PRIVATE_REPO=$4
+PRIVATE_REPO=$5
 
 echo "Creating new repository ${DRAFT_NAME}"
 mkdir "${DRAFT_NAME}"
@@ -13,19 +13,18 @@ cp -r workflows/ "${DRAFT_NAME}"/.github/
 cd "${DRAFT_NAME}"
 
 # change api url based on whether an org name was provided
-private_repo_data_blob=''
 if [[ -z "${ORG_NAME}" ]]; then
     repository_prefix="user"
-    owner=$TOKEN_USER
-    if [[ "${PRIVATE_REPO}" == "true" ]]; then
-        private_repo_data_blob=',"private":"true"'
-    fi
+    OWNER_NAME=$CREATE_REPO_GITHUB_USER
 else
     repository_prefix="orgs/${ORG_NAME}"
-    owner=$ORG_NAME
-    if [[ "${PRIVATE_REPO}" == "true" ]]; then
-        private_repo_data_blob=',"private":"true"'
-    fi
+    OWNER_NAME=$ORG_NAME
+fi
+
+# set private repo to true in json blob if needed
+private_repo_data_blob=''
+if [[ "${PRIVATE_REPO}" == "true" ]]; then
+    private_repo_data_blob=',"private":"true"'
 fi
 
 resp=$(curl -s \
@@ -44,7 +43,7 @@ else
     rm response.txt
     echo "Response $resp received from GitHub API."
     echo "Repository ${repository_prefix}/${DRAFT_NAME} created."
-    git_url="https://${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${owner}/${DRAFT_NAME}.git"
+    git_url="https://${CREATE_REPO_GITHUB_USER}:${CREATE_REPO_GITHUB_TOKEN}@github.com/${OWNER_NAME}/${DRAFT_NAME}.git"
     git init
     sed -i 's/REPLACE_DRAFT_NAME/'"${DRAFT_NAME}"'/g' Makefile README.md draft-x.md
     mv draft-x.md draft-"${DRAFT_NAME}".md
