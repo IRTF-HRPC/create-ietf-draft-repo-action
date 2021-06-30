@@ -23,7 +23,7 @@ at a minimum the following permissions:
 Create your Github token by logging in as the intended user, going to the user
 dropdown, then Settings -> Developer settings -> Personal access tokens.
 
-[Personal access token](images/access_token.png)
+![Personal access token](images/access_token.png)
 
 Generate the token and save the value.
 
@@ -32,14 +32,14 @@ on the New repository secret button. Provide the Github token as a Github
 Actions secret with the key `CREATE_REPO_GITHUB_TOKEN`, and the current user as
 a secret with the key `CREATE_REPO_GITHUB_USER`.
 
-[Secrets](images/secrets.png)
+![Secrets](images/secrets.png)
 
 ## How To Create A New Repo
 
 To create a new repository, go to the Actions tab and select Generate new repo
 in the sidebar.
 
-[Generate new repo](images/new_repo_workflow.png)
+![Generate new repo](images/new_repo_workflow.png)
 
 Under the workflow runs section there will be a button labeled Run workflow.
 Clicking this brings up several options. The name will be the exact name the
