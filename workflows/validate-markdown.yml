@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'draft-*.md'
+    branches-ignore:
+      - 'main'
   pull_request:
     paths:
       - 'draft-*.md'
