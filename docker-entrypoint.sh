@@ -34,7 +34,7 @@ resp=$(curl -s \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
     https://api.github.com/"${repository_prefix}"/repos \
-    -d '{"name":"'${DRAFT_NAME}${private_repo_data_blob}'"}')
+    -d '{"name":"'${DRAFT_NAME}'"'${private_repo_data_blob}'}')
 
 if [[ "$resp" != "201" ]]; then
     echo "Response $resp received from GitHub API, please check token permissions."
