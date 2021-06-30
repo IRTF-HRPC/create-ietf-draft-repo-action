@@ -33,5 +33,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Update draft with commit ${{ github.sha }}"
-          git push main
+          git push
           echo "Updated local drafts with versions ${{ github.sha }}"
