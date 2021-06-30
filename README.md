@@ -11,23 +11,44 @@ alternate versions, and commits them to the repository
 * Github Actions workflow that uploads the XML version of the draft to the IETF
 Datatracker and triggers a confirmation email.
 
+## Setting Up This Action
+
+(Note: This reqires a user with admin permissions for the repository.) You'll
+need to provide the Github Actions workflow with a Github API Token that has
+at a minimum the following permissions:
+
+* repo
+* workflow
+
+Create your Github token by logging in as the intended user, going to the user
+dropdown, then Settings -> Developer settings -> Personal access tokens.
+
+![Personal access token](images/access_token.png)
+
+Generate the token and save the value.
+
+Now go to the repository's Settings tab, then the Secrets sidebar option. Click
+on the New repository secret button. Provide the Github token as a Github
+Actions secret with the key `CREATE_REPO_GITHUB_TOKEN`, and the current user as
+a secret with the key `CREATE_REPO_GITHUB_USER`.
+
+![Secrets](images/secrets.png)
+
 ## How To Create A New Repo
 
-You'll need to provide the Github Actions workflow with a Github API Token that
-has the following permissions:
+To create a new repository, go to the Actions tab and select Generate new
+repository in the sidebar.
 
-* Create Repo
+![Generate new repo](images/new_repo_workflow.png)
+
+Under the workflow runs section there will be a button labeled Run workflow.
+Clicking this brings up several options. The name will be the exact name the
+new repo will create, so ensure this doesn't conflict. Add the name of the
+Github Organization if this should exist under an organization rather than as
+the user's own. And lastly, set the last option to true to create a private
+repo.
 
 TODO: add photo
-
-(Note: This reqires a user with admin permissions for the repository.) Enter
-the token as a Github Actions secret with the key `CREATE_REPO_GITHUB_TOKEN`.
-Also input the username of the Github account owner or machine user for whom
-the token was generated.
-
-TODO: add photo
-
-Provide the workflow with the name of the new repository, and click Run.
 
 ## How To Use Newly Created Repo
 
@@ -35,8 +56,6 @@ The created repo will have two Github Actions workflows initialized upon
 creation. The first, generate-from-markdown, runs every time a commit is pushed
 to the repository and validates, generates, and commits HTML, XML, and TXT
 files from the draft markdown back to the repo.
-
-TODO: add photo
 
 The second, publish-to-datatracker, takes an confirmation email address as
 input, and publishes the current version of the repository's draft to

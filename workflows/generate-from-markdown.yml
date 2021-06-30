@@ -1,0 +1,37 @@
+name: 'generate-from-markdown'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  generate-draft:
+    runs-on: ubuntu-latest
+    name: Generate all versions of the current IETF draft
+    steps:
+
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Install needed tools
+        id: install
+        run: |
+          apt-get install -y --no-install-recommends \
+            ruby-kramdown-rfc2629 \
+            xml2rfc
+
+      - name: Validate current draft
+        id: validate-draft
+        run: make
+
+      - name: Update repo with current draft versions
+        id: update-repo-draft
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update draft with commit ${{ github.sha }}"
+          git push
+          echo "Updated local drafts with versions ${{ github.sha }}"

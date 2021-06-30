@@ -1,31 +1,44 @@
-name: 'Generate new repo'
+name: 'Generate new repository'
 on:
   workflow_dispatch:
     inputs:
       draft-name:
         required: true
         description: 'Name of new draft and repository'
-      token-username:
-        description: 'Github username for CREATE_REPO_GITHUB_TOKEN'
-        required: true
       org-name:
         description: 'Name of Github Organization to use'
+      private-repo:
+        description: 'Whether to create as a private repo (default false)'
+        default: false
 
 jobs:
   generate-new-repository:
     runs-on: ubuntu-latest
     name: Create a new IETF draft repository
     steps:
+
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         id: checkout
         uses: actions/checkout@v2
+
+      - name: Check Token Scopes
+        id: check-scope
+        run: |
+            resp=$(curl -H "Authorization: token ${{ secrets.CREATE_REPO_GITHUB_TOKEN }}" \
+            https://api.github.com/users/${{ secrets.CREATE_REPO_GITHUB_USER }} -I)
+            includes_proper_scopes=$(cat resp | grep -i 'X-OAuth-Scopes' | grep 'repo, workflow' | wc -l)
+            if [[ "$includes_proper_scopes" -gt 0 ]]; then
+                echo 'Missing "repo" and "workflow" scopes on CREATE_REPO_GITHUB_TOKEN.'
+            fi
+
       - name: Create new repository action
         id: generate-repo
         uses: ./ # Uses an action in the root directory
         with:
           draft-name: ${{ github.event.inputs.draft-name }}
           org-name: ${{ github.event.inputs.org-name }}
-          create-repo-token-username: ${{ github.event.inputs.token-username }}
+          create-repo-github-user: ${{ secrets.CREATE_REPO_GITHUB_USER }}
           create-repo-github-token: ${{ secrets.CREATE_REPO_GITHUB_TOKEN }}
+          private-repo: ${{ github.event.inputs.private-repo }}
