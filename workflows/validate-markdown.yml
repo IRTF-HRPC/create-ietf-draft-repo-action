@@ -1,8 +1,11 @@
-name: 'generate-from-markdown'
+name: 'validate-markdown'
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'draft-*.md'
+    branches-ignore:
+      - 'main'
+  pull_request:
     paths:
       - 'draft-*.md'
 
@@ -26,13 +29,3 @@ jobs:
       - name: Validate current draft
         id: validate-draft
         run: make
-
-      - name: Update repo with current draft versions
-        id: update-repo-draft
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Update draft with commit ${{ github.sha }}"
-          git push
-          echo "Updated local drafts with versions ${{ github.sha }}"
