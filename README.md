@@ -11,6 +11,16 @@ alternate versions, and commits them to the repository
 * Github Actions workflow that uploads the XML version of the draft to the IETF
 Datatracker and triggers a confirmation email.
 
+### Inputs
+
+*draft-name*: Name of the new draft- this will be prepended with `draft-`
+
+*org-name*: Github Organization name to create the draft repo in, if this is
+not provided then the action will create it in the personal account of the
+personal access token (saved in Secrets) owner
+
+*private-repo*: Boolean true or false, defaults to false
+
 ## Setting Up This Action
 
 ### Creating Workflows Repo
@@ -39,7 +49,7 @@ on:
       org-name:
         description: 'Name of Github Organization to use'
       private-repo:
-        description: 'Whether to create as a private repo (default false)'
+        description: 'Create as a private repo (default false)'
         default: false
 
 jobs:
@@ -49,7 +59,7 @@ jobs:
     steps:
       - name: Create new repository action
         id: generate-repo
-        uses: ./ # Uses an action in the root directory
+        uses: IRTF-HRPC/create-ietf-draft-repo-action@v0.1.0
         with:
           draft-name: ${{ github.event.inputs.draft-name }}
           create-repo-github-user: ${{ secrets.CREATE_REPO_GITHUB_USER }}
@@ -111,7 +121,8 @@ The created repo has two capabilities initialized upon creation.
 
 The first is a validation workflow against the markdown draft file that runs on
 every commit, and generates and commits HTML, XML, and TXT files from the draft
-markdown back to the repo upon push to the main branch.
+markdown back to the repo upon push to the main branch. (Note that the first
+commit will fail on generation since the default draft template is not valid.)
 
 The second is a manually triggered workflow that takes an email address as
 input, and submits the current version of the repository's draft to
