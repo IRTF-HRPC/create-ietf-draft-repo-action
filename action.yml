@@ -1,12 +1,12 @@
-name: 'generate-new-repo'
-description: 'Creates new repository at location specified for IETF Drafts'
+name: 'create-ietf-draft'
+description: 'Creates new repository for IETF Drafts'
 
 inputs:
   draft-name:
     description: 'Name of new draft and repository'
     required: true
   org-name:
-    description: 'Name of Github Organization to use'
+    description: 'Name of Github Organization to use, otherwise create for user'
   create-repo-github-user:
     description: 'Github username for create-repo-github-token'
     required: true
@@ -14,7 +14,7 @@ inputs:
     description: 'Github token for creating repositories'
     required: true
   private-repo:
-    description: 'Whether to create as a private repo (default false)'
+    description: 'Create as a private repo (default false)'
     default: false
 
 runs:
