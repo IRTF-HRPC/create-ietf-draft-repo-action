@@ -1,12 +1,12 @@
 ---
 title:
 abbrev: logging
-docname:
+docname: null
 category: info
 
 ipr: trust200902
-area:
-workgroup:
+area: null
+workgroup: null
 keyword: Internet-Draft
 stand_alone: yes
 pi:
@@ -25,31 +25,25 @@ author:
 -
        ins: F. Last
        name: First Name
-       organization:
-       email:
-
--
-       ins: F. Last
-       name: First Name
-       organization:
-       email:
+       organization: null
+       email: foo@bar.org
 
 normative:
 
 informative: 
-   RFCXXXX:
+   RFCXXXX: null
 
    Title:
      title: ""
-     date:
-     author:
-        - ins:
-        - ins:
-     target:
+     date: null
+     author: F. Last
+        - ins: null
+        - ins: null
+     target: null
 
 --- abstract
 
-[abstract text here]
+[abstract text here](https://www.ietf.org/)
 
 --- middle
 

@@ -11,5 +11,6 @@ RUN apt-get update && \
 
 COPY workflows/ .
 COPY repo/ .
+COPY docker-entrypoint.sh .
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
