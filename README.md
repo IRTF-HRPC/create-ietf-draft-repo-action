@@ -1,25 +1,25 @@
-# Create IETF Draft Repo Github Action
+# Create IETF Internet-Draft Github Action
 
-This Github Action creates a draft IETF repository in the designated author's
+This Github Action creates a repository for an IETF Internet-Draft in the designated author's
 personal Github account or Github Organization.
 
 This new repository includes the following features:
 
-* Makefile for generating HTML, XML, and TXT versions of a draft Markdown file
+* Makefile for generating HTML, XML, and TXT versions of a file written in Markdown
 * Github Actions workflow that validates the Markdown draft, generates the
 alternate versions, and commits them to the repository
 * Github Actions workflow that uploads the XML version of the draft to the IETF
-Datatracker and triggers a confirmation email.
+Datatracker, which triggers a confirmation email.
 
-### Inputs
+## Action Inputs
 
-*draft-name*: Name of the new draft- this will be prepended with `draft-`
+*draft-name*: Name of the new draft. This string will be prepended with `draft-`
 
-*org-name*: Github Organization name to create the draft repo in, if this is
-not provided then the action will create it in the personal account of the
-personal access token (saved in Secrets) owner
+*org-name*: Github Organization name to create the draft repo in. If this is
+not provided then the action will create a new draft in the personal account of the
+repository "user" (specified in the repository settings under Actions secrets).
 
-*private-repo*: Boolean true or false, defaults to false
+*private-repo*: Boolean "true" or "false", defaults to false
 
 ## Setting Up This Action
 
